@@ -5,6 +5,7 @@ class DoubleCell : public Cell{
 private:
 	double data = 0;
 public:
+	DoubleCell() = default;
 	DoubleCell(double data);
 
 	void PrintCell() const override;

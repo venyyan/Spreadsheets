@@ -127,6 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CellFactory.cpp" />
     <ClCompile Include="DoubleCell.cpp" />
     <ClCompile Include="IntCell.cpp" />
     <ClCompile Include="MyString.cpp" />
@@ -135,6 +136,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Cell.h" />
+    <ClInclude Include="CellFactory.h" />
     <ClInclude Include="DoubleCell.h" />
     <ClInclude Include="IntCell.h" />
     <ClInclude Include="MyString.h" />
