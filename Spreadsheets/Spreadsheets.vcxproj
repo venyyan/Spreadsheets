@@ -127,12 +127,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="DoubleCell.cpp" />
+    <ClCompile Include="IntCell.cpp" />
     <ClCompile Include="MyString.cpp" />
+    <ClCompile Include="Row.cpp" />
     <ClCompile Include="Spreadsheets.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Cell.h" />
+    <ClInclude Include="DoubleCell.h" />
+    <ClInclude Include="IntCell.h" />
     <ClInclude Include="MyString.h" />
     <ClInclude Include="MyVector.hpp" />
+    <ClInclude Include="Row.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
