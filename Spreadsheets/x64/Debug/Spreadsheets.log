@@ -1,2 +1,6 @@
-﻿  MyString.cpp
-  Spreadsheets.vcxproj -> C:\Users\venia\source\repos\Spreadsheets\x64\Debug\Spreadsheets.exe
+﻿  DoubleCell.cpp
+  IntCell.cpp
+  Generating Code...
+DoubleCell.obj : error LNK2001: unresolved external symbol "public: virtual void __cdecl DoubleCell::PrintCell(void)const " (?PrintCell@DoubleCell@@UEBAXXZ)
+IntCell.obj : error LNK2001: unresolved external symbol "public: virtual void __cdecl IntCell::PrintCell(void)const " (?PrintCell@IntCell@@UEBAXXZ)
+C:\Users\venia\source\repos\Spreadsheets\x64\Debug\Spreadsheets.exe : fatal error LNK1120: 2 unresolved externals

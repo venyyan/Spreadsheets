@@ -50,5 +50,8 @@
     <ClInclude Include="Row.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="UniquePtr.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
