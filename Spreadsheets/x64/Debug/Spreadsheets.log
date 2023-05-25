@@ -1,6 +1,33 @@
-﻿  DoubleCell.cpp
-  IntCell.cpp
+﻿  Row.cpp
+C:\Users\venia\source\repos\Spreadsheets\Spreadsheets\UniquePtr.hpp(33,1): warning C4812: obsolete declaration style: please use 'UniquePtr<T>::UniquePtr' instead
+  Spreadsheets.cpp
+C:\Users\venia\source\repos\Spreadsheets\Spreadsheets\UniquePtr.hpp(33,1): warning C4812: obsolete declaration style: please use 'UniquePtr<T>::UniquePtr' instead
+  Table.cpp
+C:\Users\venia\source\repos\Spreadsheets\Spreadsheets\UniquePtr.hpp(33,1): warning C4812: obsolete declaration style: please use 'UniquePtr<T>::UniquePtr' instead
+C:\Users\venia\source\repos\Spreadsheets\Spreadsheets\Table.cpp(48,12): warning C4101: 'cellType': unreferenced local variable
+C:\Users\venia\source\repos\Spreadsheets\Spreadsheets\UniquePtr.hpp(33,1): warning C4812: obsolete declaration style: please use 'UniquePtr<Cell>::UniquePtr' instead
+C:\Users\venia\source\repos\Spreadsheets\Spreadsheets\UniquePtr.hpp(33,36): message : while compiling class template member function 'UniquePtr<Cell>::UniquePtr(T *)'
+          with
+          [
+              T=Cell
+          ]
+C:\Users\venia\source\repos\Spreadsheets\Spreadsheets\Table.cpp(58,3): message : see reference to function template instantiation 'UniquePtr<Cell>::UniquePtr(T *)' being compiled
+          with
+          [
+              T=Cell
+          ]
+C:\Users\venia\source\repos\Spreadsheets\Spreadsheets\Table.cpp(49,26): message : see reference to class template instantiation 'UniquePtr<Cell>' being compiled
+C:\Users\venia\source\repos\Spreadsheets\Spreadsheets\UniquePtr.hpp(33,1): warning C4812: obsolete declaration style: please use 'UniquePtr<Row>::UniquePtr' instead
+C:\Users\venia\source\repos\Spreadsheets\Spreadsheets\UniquePtr.hpp(33,36): message : while compiling class template member function 'UniquePtr<Row>::UniquePtr(T *)'
+          with
+          [
+              T=Row
+          ]
+C:\Users\venia\source\repos\Spreadsheets\Spreadsheets\Table.cpp(37,17): message : see reference to function template instantiation 'UniquePtr<Row>::UniquePtr(T *)' being compiled
+          with
+          [
+              T=Row
+          ]
+C:\Users\venia\source\repos\Spreadsheets\Spreadsheets\Table.cpp(25,31): message : see reference to class template instantiation 'UniquePtr<Row>' being compiled
   Generating Code...
-DoubleCell.obj : error LNK2001: unresolved external symbol "public: virtual void __cdecl DoubleCell::PrintCell(void)const " (?PrintCell@DoubleCell@@UEBAXXZ)
-IntCell.obj : error LNK2001: unresolved external symbol "public: virtual void __cdecl IntCell::PrintCell(void)const " (?PrintCell@IntCell@@UEBAXXZ)
-C:\Users\venia\source\repos\Spreadsheets\x64\Debug\Spreadsheets.exe : fatal error LNK1120: 2 unresolved externals
+  Spreadsheets.vcxproj -> C:\Users\venia\source\repos\Spreadsheets\x64\Debug\Spreadsheets.exe

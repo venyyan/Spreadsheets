@@ -1,5 +1,5 @@
 #pragma once
-#include <exception>
+#include <iostream>
 template <typename T>
 class MyVector {
 private:
@@ -24,10 +24,16 @@ private:
 	void Resize(size_t newCapacity);
 
 public:
+	size_t GetSize() const;
+
 	void PushBack(const T& newItem);
 	void PushBack(T&& newItem);
 
 	void PopBack();
+
+	const T& At(size_t index) const;
+	T& At(size_t index);
+	
 
 	void SetAt(const T& newItem, size_t index);
 	void SetAt(T&& newItem, size_t index);
@@ -40,7 +46,7 @@ void MyVector<T>::CopyFrom(const MyVector& other) {
 	this->data = new T[capacity];
 	for (size_t i = 0; i < size; i++)
 	{
-		this->data[i] = other.data[i];
+		this->data[i] = std::move(other.data[i]);
 	}
 }
 
@@ -67,7 +73,7 @@ void MyVector<T>::Resize(size_t newCapacity) {
 	this->capacity = newCapacity;
 	for (size_t i = 0; i < capacity; i++)
 	{
-		this->data[i] = temp[i];
+		this->data[i] = std::move(temp[i]);
 	}
 	delete[] temp;
 }
@@ -137,6 +143,16 @@ void MyVector<T>::PopBack() {
 }
 
 template <typename T>
+const T& MyVector<T>::At(size_t index) const {
+	return this->data[index];
+}
+
+template <typename T>
+T& MyVector<T>::At(size_t index) {
+	return this->data[index];
+}
+
+template <typename T>
 void MyVector<T>::SetAt(const T& newItem, size_t index) {
 	if (index >= this->size)
 		throw std::length_error("No such index!");
@@ -150,4 +166,9 @@ void MyVector<T>::SetAt(T&& newItem, size_t index) {
 		throw std::length_error("No such index!");
 
 	this->data[index] = std::move(newItem);
+}
+
+template <typename T>
+size_t MyVector<T>::GetSize() const {
+	return this->size;
 }

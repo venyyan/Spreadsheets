@@ -2,9 +2,8 @@
 
 IntCell::IntCell(int data) : Cell(CellType::Int), data(data) {}
 
-//void IntCell::PrintCell() const  {
-//	
-//}
+IntCell::IntCell() : Cell(CellType::Int) {}
+
 
 Cell* IntCell::clone() const  {
 	Cell* newCell = new IntCell(*this);
@@ -13,4 +12,8 @@ Cell* IntCell::clone() const  {
 
 int IntCell::GetData() const {
 	return this->data;
+}
+
+void IntCell::PrintCell(std::ostream& streamType) const {
+	streamType << this->data;
 }

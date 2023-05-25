@@ -31,9 +31,14 @@ public:
 	MyString operator+=(const MyString& other);
 
 	const char* c_str() const;
+	int stoi() const;
+	double stod() const;
 
 	char& operator[](size_t index);
 	char operator[](size_t index) const;
+
+	bool IsInt() const;
+	bool IsDouble() const;
 
 	friend std::istream& operator>>(std::istream& is, MyString& str);
 };

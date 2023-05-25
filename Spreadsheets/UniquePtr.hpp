@@ -1,4 +1,4 @@
-#pragma warning
+#pragma once
 
 template <typename T>
 class UniquePtr {
@@ -6,7 +6,7 @@ private:
 	T* ptr = nullptr;
 public:
 	UniquePtr() = default;
-	UniquePtr(const T* ptr);
+	UniquePtr(T* ptr);
 
 	UniquePtr(const UniquePtr& other) = delete;
 	UniquePtr& operator=(const UniquePtr& other) = delete;
@@ -23,18 +23,20 @@ public:
 	T& operator*();
 	T operator*() const;
 
+	T* operator->() const;
+
 	operator bool() const;
 	bool operator!() const;
 };
 
 template <typename T>
-UniquePtr<T>::UniquePtr<T>(const T* ptr) {
+UniquePtr<T>::UniquePtr<T>(T* ptr) {
 	this->ptr = ptr;
 }
 
 template <typename T>
 UniquePtr<T>::UniquePtr(UniquePtr&& other) noexcept {
-	MoveFrom(std::move());
+	MoveFrom(std::move(other));
 }
 
 template <typename T>
@@ -79,5 +81,10 @@ UniquePtr<T>::operator bool() const {
 
 template <typename T>
 bool UniquePtr<T>::operator!() const {
-	return (mPointer == nullptr);
+	return (this->ptr == nullptr);
+}
+
+template <typename T>
+T* UniquePtr<T>::operator->() const {
+	return this->ptr;
 }

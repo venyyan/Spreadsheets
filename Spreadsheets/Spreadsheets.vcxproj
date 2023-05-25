@@ -133,15 +133,18 @@
     <ClCompile Include="MyString.cpp" />
     <ClCompile Include="Row.cpp" />
     <ClCompile Include="Spreadsheets.cpp" />
+    <ClCompile Include="Table.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Cell.h" />
     <ClInclude Include="CellFactory.h" />
     <ClInclude Include="DoubleCell.h" />
+    <ClInclude Include="GlobalConstants.h" />
     <ClInclude Include="IntCell.h" />
     <ClInclude Include="MyString.h" />
     <ClInclude Include="MyVector.hpp" />
     <ClInclude Include="Row.h" />
+    <ClInclude Include="Table.h" />
     <ClInclude Include="UniquePtr.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

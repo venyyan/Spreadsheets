@@ -1,4 +1,5 @@
 #pragma once
+#include <fstream>
 
 enum class CellType {
 	Int,
@@ -11,7 +12,8 @@ private:
 public:
 	Cell(CellType cellType) : cellType(cellType) {};
 
-	virtual void PrintCell() const = 0;
+	virtual void PrintCell(std::ostream& streamType) const = 0;
+
 	virtual Cell* clone() const = 0;
 	virtual ~Cell() = default;
 
