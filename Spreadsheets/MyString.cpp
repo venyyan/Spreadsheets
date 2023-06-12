@@ -108,20 +108,40 @@ std::istream& operator>>(std::istream& is, MyString& str) {
 	return is;
 }
 
+MyString MyString::SubStr(size_t begin, size_t howMany) const {
+	if (begin + howMany > this->length)
+		throw std::length_error("Substring out of range!");
+	MyString res(howMany + 2);
+	for (int i = 0; i < howMany; i++)
+		res.data[i] = this->data[begin + i];
+
+	res[howMany] = '\0';
+	return res;
+}
+
 bool IsDigit(char c) {
 	return c >= '0' && c <= '9';
 }
 
 bool MyString::IsInt() const {
 	bool isNegative = false;
+	size_t startIdx = 0;
+	size_t endIdx = this->length - 1;
 
-	if (this->data[0] == '-' || this->data[0] == '+')
+	while (startIdx < this->length && this->data[startIdx] == ' ') {
+		startIdx++;
+	}
+
+	while (endIdx > startIdx && this->data[endIdx] == ' ') {
+		endIdx--;
+	}
+
+	if (startIdx <= endIdx && (this->data[startIdx] == '-' || this->data[startIdx] == '+')) {
 		isNegative = true;
+		startIdx++;
+	}
 
-	if (!IsDigit(this->data[0]) && !isNegative)
-		return false;
-
-	for (size_t i = isNegative; i < this->length; i++)
+	for (size_t i = startIdx; i <= endIdx; i++)
 	{
 		if (!IsDigit(this->data[i]))
 			return false;
@@ -132,23 +152,42 @@ bool MyString::IsInt() const {
 bool MyString::IsDouble() const {
 	bool hasSign = false;
 	bool hasDecimalPoint = false;
+	bool isEmpty = true;
 
-	if (this->data[0] == '-' || this->data[0] == '+')
-		hasSign = true;
+	size_t startIdx = 0;
+	size_t endIdx = this->length - 1;
 
-	for (size_t i = hasSign; i < this->length; i++)
-	{
-		if (IsDigit(this->data[i]))
-			continue;
-		else if (this->data[i] == '.') {
-			if (hasDecimalPoint)
-				return false;
-			hasDecimalPoint = true;
-		}
-		else
-			return false;
+	while (startIdx < this->length && this->data[startIdx] == ' ') {
+		startIdx++;
 	}
-	return true;
+
+	if (startIdx < this->length && (this->data[startIdx] == '-' || this->data[startIdx] == '+')) {
+		hasSign = true;
+		startIdx++;
+	}
+
+	while (endIdx > startIdx && this->data[endIdx] == ' ') {
+		endIdx--;
+	}
+
+	for (size_t i = startIdx; i <= endIdx; i++) {
+		{
+			if (IsDigit(this->data[i])) {
+				isEmpty = false;
+				continue;
+			}
+			else if (this->data[i] == '.') {
+				if (hasDecimalPoint)
+					return false;
+				hasDecimalPoint = true;
+			}
+			else
+				return false;
+		}
+		if (isEmpty)
+			return false;
+		return true;
+	}
 }
 
 int MyString::stoi() const {
@@ -156,17 +195,35 @@ int MyString::stoi() const {
 	bool isNegative = false;
 	int makeNegative = 1;
 
-	if (this->data[0] == '-') {
-		isNegative = true;
-		makeNegative = -1;
+	size_t startIdx = 0;
+	size_t endIdx = this->length - 1;
+
+	while (startIdx < this->length && this->data[startIdx] == ' ') {
+		startIdx++;
 	}
 
-	for (size_t i = isNegative; i < this->length; i++)
+	while (endIdx > startIdx && this->data[endIdx] == ' ') {
+		endIdx--;
+	}
+
+	if (startIdx <= endIdx && (this->data[startIdx] == '+' || this->data[startIdx] == '-')) {
+		if (this->data[startIdx] == '-')
+			isNegative = true;
+		startIdx++;
+	}
+
+	for (size_t i = startIdx; i <= endIdx; i++)
 	{
 		int digit = this->data[i] - '0';
 		result = result * 10 + digit;
 	}
 	return result * makeNegative;
+}
+
+MyString MyString::ExtractQuote() const {
+	MyString result(this->length);
+	result = SubStr(1, this->length - 2);
+	return result;
 }
 
 size_t NumberSize(int number) {
@@ -188,9 +245,21 @@ double MyString::stod() const {
 	bool isNegative = false;
 	int makeNegative = 1;
 
-	if (this->data[0] == '-') {
-		isNegative = true;
-		makeNegative = -1;
+	size_t startIdx = 0;
+	size_t endIdx = this->length - 1;
+
+	while (startIdx < this->length && this->data[startIdx] == ' ') {
+		startIdx++;
+	}
+
+	if (startIdx < this->length && (this->data[startIdx] == '-' || this->data[startIdx] == '+')) {
+		if (this->data[startIdx] == '-')
+			isNegative = true;
+		startIdx++;
+	}
+
+	while (endIdx > startIdx && this->data[endIdx] == ' ') {
+		endIdx--;
 	}
 
 	int mantissaInt = 0;
@@ -198,22 +267,22 @@ double MyString::stod() const {
 
 	bool hasDot = false;
 
-	int index = 0;
 	int indexOfDot = 0;
-	while (this->data[index] != '\0') {
-		if (this->data[index] == '.') {
-			indexOfDot = index;
+	int index = 0;
+	for (size_t i = startIdx; i <= endIdx; i++) {
+		if (this->data[i] == '.') {
+			indexOfDot = i;
 			hasDot = true;
+			break;
 		}
-		index++;
 	}
 
 	if (!hasDot) {
-		indexOfDot = this->length;
+		indexOfDot = endIdx + 1;
 	}
 
-	index = 0 + isNegative;
-	int counter = indexOfDot - 1 - isNegative;
+	index = startIdx;
+	int counter = indexOfDot - 1 - isNegative - startIdx;
 	while (index != indexOfDot) {
 		result += (this->data[index] - '0') * pow(10, counter);
 		counter--;
@@ -225,8 +294,8 @@ double MyString::stod() const {
 	}
 
 	index = indexOfDot + 1;
-	counter = this->length - indexOfDot - 2;
-	while (this->data[index] != '\0') {
+	counter = endIdx - indexOfDot;
+	while (this->data[index] != endIdx && counter > 0) {
 		mantissaInt += (this->data[index] - '0') * pow(10, counter);
 		counter--;
 		index++;
@@ -239,6 +308,19 @@ double MyString::stod() const {
 
 	result += mantissaDouble;
 	return result * makeNegative;
+}
+
+bool MyString::IsQuote() const {
+	/*bool isQuote = false;
+	for (size_t i = 0; i < length; i++)
+	{
+		if (this->data[i] == )
+	}*/
+	return this->data[0] == '"' && this->data[length - 1] == '"';
+}
+
+bool MyString::IsEmpty() const {
+	return this->length == 0;
 }
 
 std::ostream& operator<<(std::ostream& os, const MyString& str) {

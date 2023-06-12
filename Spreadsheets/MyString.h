@@ -27,18 +27,23 @@ private:
 
 public:
 	size_t GetLength() const;
+	bool IsEmpty() const;
+
+	MyString SubStr(size_t begin, size_t howMany) const;
 
 	MyString operator+=(const MyString& other);
 
 	const char* c_str() const;
 	int stoi() const;
 	double stod() const;
+	MyString ExtractQuote() const;
 
 	char& operator[](size_t index);
 	char operator[](size_t index) const;
 
 	bool IsInt() const;
 	bool IsDouble() const;
+	bool IsQuote() const;
 
 	friend std::istream& operator>>(std::istream& is, MyString& str);
 };

@@ -3,7 +3,8 @@
 
 enum class CellType {
 	Int,
-	Double
+	Double,
+	String
 };
 
 class Cell {

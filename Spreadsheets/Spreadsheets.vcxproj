@@ -133,6 +133,7 @@
     <ClCompile Include="MyString.cpp" />
     <ClCompile Include="Row.cpp" />
     <ClCompile Include="Spreadsheets.cpp" />
+    <ClCompile Include="StringCell.cpp" />
     <ClCompile Include="Table.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -144,6 +145,7 @@
     <ClInclude Include="MyString.h" />
     <ClInclude Include="MyVector.hpp" />
     <ClInclude Include="Row.h" />
+    <ClInclude Include="StringCell.h" />
     <ClInclude Include="Table.h" />
     <ClInclude Include="UniquePtr.hpp" />
   </ItemGroup>
