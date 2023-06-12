@@ -1,11 +1,10 @@
 #include <iostream>
-#include "Table.h"
+#include "..\Table\Table.h"
 
 int main()
 {
 	Table table("file.txt");
 	
-
 	MyString data("\"tjkgrtjg\"");
 	table.EditCell(1, 2, data);
 

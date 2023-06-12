@@ -127,27 +127,31 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="CellFactory.cpp" />
-    <ClCompile Include="DoubleCell.cpp" />
-    <ClCompile Include="IntCell.cpp" />
-    <ClCompile Include="MyString.cpp" />
-    <ClCompile Include="Row.cpp" />
-    <ClCompile Include="Spreadsheets.cpp" />
-    <ClCompile Include="StringCell.cpp" />
-    <ClCompile Include="Table.cpp" />
+    <ClCompile Include="Formula\ArithmeticExpression.cpp" />
+    <ClCompile Include="Table\Cell\CellFactory.cpp" />
+    <ClCompile Include="Table\Cell\DoubleCell.cpp" />
+    <ClCompile Include="Table\Cell\IntCell.cpp" />
+    <ClCompile Include="Utilities\MyString.cpp" />
+    <ClCompile Include="Formula\Number.cpp" />
+    <ClCompile Include="Table\Row.cpp" />
+    <ClCompile Include="Main\Spreadsheets.cpp" />
+    <ClCompile Include="Table\Cell\StringCell.cpp" />
+    <ClCompile Include="Table\Table.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Cell.h" />
-    <ClInclude Include="CellFactory.h" />
-    <ClInclude Include="DoubleCell.h" />
+    <ClInclude Include="Formula\ArithmeticExpression.h" />
+    <ClInclude Include="Table\Cell\Cell.h" />
+    <ClInclude Include="Table\Cell\CellFactory.h" />
+    <ClInclude Include="Table\Cell\DoubleCell.h" />
     <ClInclude Include="GlobalConstants.h" />
-    <ClInclude Include="IntCell.h" />
-    <ClInclude Include="MyString.h" />
-    <ClInclude Include="MyVector.hpp" />
-    <ClInclude Include="Row.h" />
-    <ClInclude Include="StringCell.h" />
-    <ClInclude Include="Table.h" />
-    <ClInclude Include="UniquePtr.hpp" />
+    <ClInclude Include="Table\Cell\IntCell.h" />
+    <ClInclude Include="Utilities\MyString.h" />
+    <ClInclude Include="Utilities\MyVector.hpp" />
+    <ClInclude Include="Formula\Number.h" />
+    <ClInclude Include="Table\Row.h" />
+    <ClInclude Include="Table\Cell\StringCell.h" />
+    <ClInclude Include="Table\Table.h" />
+    <ClInclude Include="Utilities\UniquePtr.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

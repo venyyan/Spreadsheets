@@ -1,10 +1,10 @@
 #pragma once
 #include "Row.h"
-#include "MyString.h"
-#include "CellFactory.h"
-#include "IntCell.h"
-#include "DoubleCell.h"
-#include "StringCell.h"
+#include "..\Utilities\MyString.h"
+#include "Cell\CellFactory.h"
+#include "Cell\IntCell.h"
+#include "Cell\DoubleCell.h"
+#include "Cell\StringCell.h"
 
 class Table
 {

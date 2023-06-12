@@ -1,9 +1,1 @@
-﻿  MyString.cpp
-C:\Users\venia\source\repos\Spreadsheets\Spreadsheets\MyString.cpp(274,18): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\venia\source\repos\Spreadsheets\Spreadsheets\MyString.cpp(281,26): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\venia\source\repos\Spreadsheets\Spreadsheets\MyString.cpp(284,18): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\venia\source\repos\Spreadsheets\Spreadsheets\MyString.cpp(285,54): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\venia\source\repos\Spreadsheets\Spreadsheets\MyString.cpp(297,31): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\venia\source\repos\Spreadsheets\Spreadsheets\MyString.cpp(299,44): warning C4244: '+=': conversion from 'double' to 'int', possible loss of data
-C:\Users\venia\source\repos\Spreadsheets\Spreadsheets\MyString.cpp(191): warning C4715: 'MyString::IsDouble': not all control paths return a value
-  Spreadsheets.vcxproj -> C:\Users\venia\source\repos\Spreadsheets\x64\Debug\Spreadsheets.exe
+﻿  Spreadsheets.vcxproj -> C:\Users\venia\source\repos\Spreadsheets\x64\Debug\Spreadsheets.exe

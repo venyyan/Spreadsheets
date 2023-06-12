@@ -1,6 +1,6 @@
 #pragma once
 #include "Cell.h"
-#include "MyString.h"
+#include "..\..\Utilities\MyString.h"
 
 class StringCell : public Cell
 {

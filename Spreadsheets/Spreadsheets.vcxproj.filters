@@ -15,63 +15,75 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Spreadsheets.cpp">
+    <ClCompile Include="Main\Spreadsheets.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MyString.cpp">
+    <ClCompile Include="Utilities\MyString.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="IntCell.cpp">
+    <ClCompile Include="Table\Cell\IntCell.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="DoubleCell.cpp">
+    <ClCompile Include="Table\Cell\DoubleCell.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Row.cpp">
+    <ClCompile Include="Table\Row.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CellFactory.cpp">
+    <ClCompile Include="Table\Cell\CellFactory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Table.cpp">
+    <ClCompile Include="Table\Table.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="StringCell.cpp">
+    <ClCompile Include="Table\Cell\StringCell.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Formula\ArithmeticExpression.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Formula\Number.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="MyVector.hpp">
+    <ClInclude Include="Utilities\MyVector.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MyString.h">
+    <ClInclude Include="Utilities\MyString.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Cell.h">
+    <ClInclude Include="Table\Cell\Cell.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="IntCell.h">
+    <ClInclude Include="Table\Cell\IntCell.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="DoubleCell.h">
+    <ClInclude Include="Table\Cell\DoubleCell.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Row.h">
+    <ClInclude Include="Table\Row.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="UniquePtr.hpp">
+    <ClInclude Include="Utilities\UniquePtr.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CellFactory.h">
+    <ClInclude Include="Table\Cell\CellFactory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Table.h">
+    <ClInclude Include="Table\Table.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GlobalConstants.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="StringCell.h">
+    <ClInclude Include="Table\Cell\StringCell.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Formula\ArithmeticExpression.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Formula\Number.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

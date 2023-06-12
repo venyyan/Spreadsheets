@@ -1,8 +1,8 @@
 #pragma once
-#include "Cell.h"
-#include "MyVector.hpp"
-#include "UniquePtr.hpp"
-#include "MyString.h"
+#include "Cell\Cell.h"
+#include "..\Utilities\MyVector.hpp"
+#include "..\Utilities\UniquePtr.hpp"
+#include "..\Utilities\MyString.h"
 
 class Row {
 private:
