@@ -39,10 +39,16 @@
     <ClCompile Include="Table\Cell\StringCell.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Formula\ArithmeticExpression.cpp">
+    <ClCompile Include="Formula\Number.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Formula\Number.cpp">
+    <ClCompile Include="Formula\Expression.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Formula\ExpressionCalculator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Table\Cell\FormulaCell.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -84,6 +90,18 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Formula\Number.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Formula\Expression.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Formula\ExpressionCalculator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Table\Cell\FormulaCell.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities\SharedPtr.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

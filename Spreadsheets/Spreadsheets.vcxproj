@@ -127,7 +127,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Formula\ArithmeticExpression.cpp" />
+    <ClCompile Include="Table\Cell\FormulaCell.cpp" />
+    <ClCompile Include="Formula\ExpressionCalculator.cpp" />
+    <ClCompile Include="Formula\Expression.cpp" />
     <ClCompile Include="Table\Cell\CellFactory.cpp" />
     <ClCompile Include="Table\Cell\DoubleCell.cpp" />
     <ClCompile Include="Table\Cell\IntCell.cpp" />
@@ -139,6 +141,10 @@
     <ClCompile Include="Table\Table.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Utilities\SharedPtr.hpp" />
+    <ClInclude Include="Table\Cell\FormulaCell.h" />
+    <ClInclude Include="Formula\ExpressionCalculator.h" />
+    <ClInclude Include="Formula\Expression.h" />
     <ClInclude Include="Formula\ArithmeticExpression.h" />
     <ClInclude Include="Table\Cell\Cell.h" />
     <ClInclude Include="Table\Cell\CellFactory.h" />

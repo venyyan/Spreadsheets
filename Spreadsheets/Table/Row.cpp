@@ -1,6 +1,6 @@
 #include "Row.h"
 
-void Row::AddCell(UniquePtr<Cell>&& cell) {
+void Row::AddCell(SharedPtr<Cell>&& cell) {
 	this->cells.PushBack(std::move(cell));
 }
 
@@ -16,10 +16,10 @@ size_t Row::GetCellsCount() const {
 	return this->cells.GetSize();
 }
 
-const MyVector<UniquePtr<Cell>>& Row::GetCells() const {
+const MyVector<SharedPtr<Cell>>& Row::GetCells() const {
 	return this->cells;
 }
 
-void Row::EditCell(UniquePtr<Cell>&& newCell, size_t at) {
+void Row::EditCell(SharedPtr<Cell>&& newCell, size_t at) {
 	this->cells.At(at) = std::move(newCell);
 }

@@ -27,7 +27,7 @@ MyString::MyString() : MyString(1) {
 
 MyString::MyString(size_t capacity) {
 	this->length = capacity - 1;
-	this->data = new char[capacity];
+	this->data = new char[capacity] {};
 }
 MyString::MyString(const char* data) : MyString(strlen(data) + 1) {
 	strcpy_s(this->data, this->length + 1, data);
@@ -84,13 +84,13 @@ const char* MyString::c_str() const {
 }
 
 char& MyString::operator[](size_t index) {
-	if (index >= this->length)
+	if (index > this->length)
 		throw std::runtime_error("index out of range");
 
 	return this->data[index];
 }
 char MyString::operator[](size_t index) const {
-	if (index >= this->length)
+	if (index > this->length)
 		throw std::runtime_error("index out of range");
 
 	return this->data[index];
@@ -111,7 +111,7 @@ std::istream& operator>>(std::istream& is, MyString& str) {
 MyString MyString::SubStr(size_t begin, size_t howMany) const {
 	if (begin + howMany > this->length)
 		throw std::length_error("Substring out of range!");
-	MyString res(howMany + 2);
+	MyString res(howMany + 1);
 	for (int i = 0; i < howMany; i++)
 		res.data[i] = this->data[begin + i];
 
@@ -226,6 +226,13 @@ MyString MyString::ExtractQuote() const {
 	return result;
 }
 
+MyString MyString::ExtractFormula() const
+{
+	MyString result(this->length);
+	result = SubStr(1, this->length - 1);
+	return result;
+}
+
 size_t NumberSize(int number) {
 
 	int numberSize = 0;
@@ -317,6 +324,66 @@ bool MyString::IsQuote() const {
 		if (this->data[i] == )
 	}*/
 	return this->data[0] == '"' && this->data[length - 1] == '"';
+}
+
+bool MyString::IsFormula() const {
+	size_t startIdx = 0;
+	size_t endIdx = this->length - 1;
+	while (startIdx < this->length && this->data[startIdx] == ' ') {
+		startIdx++;
+	}
+
+	while (endIdx > startIdx && this->data[endIdx] == ' ') {
+		endIdx--;
+	}
+	if (this->data[startIdx] == '=')
+		return true;
+
+	return false;
+}
+
+MyString MyString::IntToString(int number) const
+{
+	size_t ind = 0;
+	size_t size = 0;
+	int numCopy = number;
+	while (numCopy > 0) {
+		numCopy /= 10;
+		size++;
+	}
+	char* result = new char[size + 2] {};
+	if (number < 0) {
+		result[ind++] = '-';
+	}
+	ind += size - 1;
+	for (int i = size - 1; i >= 0; i--)
+	{
+		result[ind--] = number % 10 + '0';
+		number /= 10;
+	}
+	MyString strResult(result);
+	delete[] result;
+	return strResult;
+}
+
+MyString MyString::DoubleToString(double number) const
+{
+	MyString wholePart = IntToString(number);
+	
+	double mantissa = number - (int)number;
+
+	int precision = 5;
+	char* result = new char[precision + 2] {};
+	result[0] = '.';
+	for (size_t i = 0; i < precision; i++)
+	{
+		mantissa *= 10;
+		result[i + 1] =  (int)mantissa + '0';
+		mantissa -= (int)mantissa;
+	}
+	
+	wholePart += MyString(result);
+	return wholePart;
 }
 
 bool MyString::IsEmpty() const {

@@ -16,13 +16,13 @@ void Table::GetTableFromFile(const MyString& filePath) {
 		//exception in constr?
 	}
 
-	MyVector<UniquePtr<Row>> rows;
+	MyVector<SharedPtr<Row>> rows;
 	
 	while (true) {
 		if (file.eof())
 			break;
 
-		UniquePtr<Row> currentRow = ReadRow(file);
+		SharedPtr<Row> currentRow = ReadRow(file);
 		rows.PushBack(std::move(currentRow));
 	}
 	size_t longestRow = 0;
@@ -41,7 +41,7 @@ void Table::GetTableFromFile(const MyString& filePath) {
 			int cycle = longestRow - this->rows.At(i)->GetCellsCount();
 			for (size_t j = 0; j < cycle; j++)
 			{
-				UniquePtr<Cell> cell = new StringCell("");
+				SharedPtr<Cell> cell = new StringCell("");
 				this->rows.At(i)->AddCell(std::move(cell));
 			}
 		}
@@ -49,16 +49,16 @@ void Table::GetTableFromFile(const MyString& filePath) {
 	}
 }
 
-UniquePtr<Row> Table::ReadRow(std::ifstream& ifs) const {
+SharedPtr<Row> Table::ReadRow(std::ifstream& ifs) const {
 	MyString rowBuffer;
 	ifs >> rowBuffer;
 	
 	if (rowBuffer.IsEmpty())
 	{
-		return UniquePtr<Row>();
+		return SharedPtr<Row>();
 	}
 
-	UniquePtr<Row> currentRow(new Row());
+	SharedPtr<Row> currentRow(new Row());
 
 	std::stringstream ss(rowBuffer.c_str());
 	size_t cellsCount = 0;
@@ -70,13 +70,13 @@ UniquePtr<Row> Table::ReadRow(std::ifstream& ifs) const {
 
 		MyString cellStr(cellBuffer);
 		CellType cellType;
-		UniquePtr<Cell> cell = ReturnCell(cellStr);
+		SharedPtr<Cell> cell = ReturnCell(cellStr);
 		currentRow->AddCell(std::move(cell));
 	}
 	return currentRow;
 }
 
-UniquePtr<Cell> Table::ReturnCell(const MyString& cellStr) const {
+SharedPtr<Cell> Table::ReturnCell(const MyString& cellStr) const {
 	if (cellStr.IsInt()) {
 		return new IntCell(cellStr.stoi());
 	}
@@ -85,6 +85,10 @@ UniquePtr<Cell> Table::ReturnCell(const MyString& cellStr) const {
 	}
 	else if (cellStr.IsQuote()) {
 		return new StringCell(cellStr.ExtractQuote());
+	}
+	else if (cellStr.IsFormula()) {
+		SharedPtr<const Table> table(this);
+		return new FormulaCell(cellStr.ExtractFormula(), table);
 	}
 	else {
 		return new StringCell("");
@@ -105,6 +109,10 @@ void Table::PrintTable(std::ostream& streamType) const {
 
 void Table::EditCell(size_t row, size_t column, const MyString& newData) {
 	//check if this cell exists
-	UniquePtr<Cell> edited = ReturnCell(newData);
+	SharedPtr<Cell> edited = ReturnCell(newData);
 	this->rows.At(row)->EditCell(std::move(edited), column);
+}
+
+const MyVector<SharedPtr<Row>>& Table::GetRows() const {
+	return this->rows;
 }

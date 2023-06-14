@@ -37,6 +37,7 @@ public:
 	int stoi() const;
 	double stod() const;
 	MyString ExtractQuote() const;
+	MyString ExtractFormula() const;
 
 	char& operator[](size_t index);
 	char operator[](size_t index) const;
@@ -44,6 +45,10 @@ public:
 	bool IsInt() const;
 	bool IsDouble() const;
 	bool IsQuote() const;
+	bool IsFormula() const;
+
+	MyString IntToString(int number) const;
+	MyString DoubleToString(double number) const;
 
 	friend std::istream& operator>>(std::istream& is, MyString& str);
 };

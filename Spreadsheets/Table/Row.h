@@ -1,24 +1,24 @@
 #pragma once
 #include "Cell\Cell.h"
 #include "..\Utilities\MyVector.hpp"
-#include "..\Utilities\UniquePtr.hpp"
+#include "..\Utilities\SharedPtr.hpp"
 #include "..\Utilities\MyString.h"
 
 class Row {
 private:
-	MyVector<UniquePtr<Cell>> cells;
+	MyVector<SharedPtr<Cell>> cells;
 
 public:
 	Row() = default;
 
 	size_t GetCellsCount() const;
 
-	const MyVector<UniquePtr<Cell>>& GetCells() const;
+	const MyVector<SharedPtr<Cell>>& GetCells() const;
 
-	void AddCell(UniquePtr<Cell>&& cell);
+	void AddCell(SharedPtr<Cell>&& cell);
 
 	void PrintRow(std::ostream& streamType) const;
 
-	void EditCell(UniquePtr<Cell>&& newCell, size_t at);
+	void EditCell(SharedPtr<Cell>&& newCell, size_t at);
 };
 

@@ -10,8 +10,8 @@ Cell* IntCell::clone() const  {
 	return newCell;
 }
 
-int IntCell::GetData() const {
-	return this->data;
+MyString IntCell::GetData() const {
+	return MyString().IntToString(this->data);
 }
 
 void IntCell::PrintCell(std::ostream& streamType) const {

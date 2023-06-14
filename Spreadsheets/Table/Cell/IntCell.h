@@ -12,7 +12,7 @@ public:
 	void PrintCell(std::ostream& streamType) const override;
 
 	Cell* clone() const override;
+	virtual MyString GetData() const override;
 
-	int GetData() const;
 };
 

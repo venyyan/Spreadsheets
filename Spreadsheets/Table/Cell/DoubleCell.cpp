@@ -10,8 +10,9 @@ Cell* DoubleCell::clone() const {
 	return newCell;
 }
 
-double DoubleCell::GetData() const {
-	return this->data;
+MyString DoubleCell::GetData() const {
+	MyString result;
+	return result.DoubleToString(this->data);
 }
 
 void DoubleCell::PrintCell(std::ostream& streamType) const {

@@ -13,6 +13,6 @@ Cell* StringCell::clone() const {
 	return newCell;
 }
 
-const MyString& StringCell::GetData() const {
+MyString StringCell::GetData() const {
 	return this->data;
 }

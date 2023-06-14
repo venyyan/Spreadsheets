@@ -1,5 +1,6 @@
 #pragma once
 #include <fstream>
+#include "../../Utilities/MyString.h"
 
 enum class CellType {
 	Int,
@@ -8,7 +9,7 @@ enum class CellType {
 };
 
 class Cell {
-private:
+protected:
 	CellType cellType;
 public:
 	Cell(CellType cellType) : cellType(cellType) {};
@@ -17,6 +18,7 @@ public:
 
 	virtual Cell* clone() const = 0;
 	virtual ~Cell() = default;
+	virtual MyString GetData() const = 0;
 
 	CellType GetType() const {
 		return this->cellType;

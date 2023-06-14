@@ -6,6 +6,6 @@ private:
 	double value;
 public:
 	Number(double value) : value(value) {}
-	double Evaluate() const override { return value; }
-	ArithmeticExpression* Clone() const override { return new Number(value); }
+	double Evaluate() const override;
+	ArithmeticExpression* Clone() const override;
 };
