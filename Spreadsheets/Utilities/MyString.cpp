@@ -184,10 +184,10 @@ bool MyString::IsDouble() const {
 			else
 				return false;
 		}
-		if (isEmpty)
-			return false;
-		return true;
 	}
+	if (isEmpty)
+		return false;
+	return true;
 }
 
 int MyString::stoi() const {
@@ -342,8 +342,21 @@ bool MyString::IsFormula() const {
 	return false;
 }
 
+bool MyString::IsEmptyString() const
+{
+	for (size_t i = 0; i < this->length; i++)
+	{
+		if (this->data[i] != ' ')
+			return false;
+	}
+	return true;
+}
+
 MyString MyString::IntToString(int number) const
 {
+	if (number == 0)
+		return MyString("0");
+	
 	size_t ind = 0;
 	size_t size = 0;
 	int numCopy = number;
@@ -372,7 +385,7 @@ MyString MyString::DoubleToString(double number) const
 	
 	double mantissa = number - (int)number;
 
-	int precision = 5;
+	int precision = 2;
 	char* result = new char[precision + 2] {};
 	result[0] = '.';
 	for (size_t i = 0; i < precision; i++)
@@ -383,7 +396,19 @@ MyString MyString::DoubleToString(double number) const
 	}
 	
 	wholePart += MyString(result);
-	return wholePart;
+	size_t removeCount = 0;
+	for (int i = wholePart.length - 1; i >= 0 ; i--)
+	{
+		if (wholePart[i] != '0')
+			break;
+
+		if (wholePart[i] == '0')
+			removeCount++;
+	}
+
+	if (wholePart[wholePart.length - 1 - removeCount] == '.')
+		removeCount++;
+	return wholePart.SubStr(0, wholePart.length - removeCount);
 }
 
 bool MyString::IsEmpty() const {

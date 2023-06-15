@@ -46,6 +46,7 @@ public:
 	bool IsDouble() const;
 	bool IsQuote() const;
 	bool IsFormula() const;
+	bool IsEmptyString() const;
 
 	MyString IntToString(int number) const;
 	MyString DoubleToString(double number) const;

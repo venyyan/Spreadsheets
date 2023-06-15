@@ -8,10 +8,11 @@ class FormulaCell : public Cell
 {
 private:
 	MyString data;
-	SharedPtr<const Table> table = nullptr;
+	double evaluated = 0;
+
 public:
 	FormulaCell();
-	FormulaCell(const MyString& data, const SharedPtr<const Table>& table);
+	FormulaCell(const MyString& data);
 
 	void PrintCell(std::ostream& streamType) const override;
 

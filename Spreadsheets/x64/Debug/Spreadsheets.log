@@ -1,4 +1,4 @@
-﻿  ExpressionCalculator.cpp
+﻿  Table.cpp
 C:\Users\venia\source\repos\Spreadsheets\Spreadsheets\Utilities\UniquePtr.hpp(33,1): warning C4812: obsolete declaration style: please use 'UniquePtr<T>::UniquePtr' instead
-C:\Users\venia\source\repos\Spreadsheets\Spreadsheets\Formula\ExpressionCalculator.cpp(82,25): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\venia\source\repos\Spreadsheets\Spreadsheets\Table\Table.cpp(109,62): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
   Spreadsheets.vcxproj -> C:\Users\venia\source\repos\Spreadsheets\x64\Debug\Spreadsheets.exe

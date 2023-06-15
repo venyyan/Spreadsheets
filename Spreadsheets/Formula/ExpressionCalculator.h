@@ -11,7 +11,7 @@ class ExpressionCalculator
 
 private:
 	//make it with unique
-	SharedPtr<const Table> table;
+	const Table* table;
 	ArithmeticExpression* expr;
 	
 
@@ -20,6 +20,6 @@ private:
 
 	int GetCell(size_t number, const MyString& str, int& rowDigitsCount) const;
 public:
-	ExpressionCalculator(const MyString& str, const SharedPtr<const Table>& table);
+	ExpressionCalculator(const MyString& str, const Table* table);
 	double Evaluate();
 };

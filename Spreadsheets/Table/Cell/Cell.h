@@ -5,7 +5,8 @@
 enum class CellType {
 	Int,
 	Double,
-	String
+	String,
+	Formula
 };
 
 class Cell {

@@ -4,10 +4,15 @@ void Row::AddCell(SharedPtr<Cell>&& cell) {
 	this->cells.PushBack(std::move(cell));
 }
 
-void Row::PrintRow(std::ostream& streamType) const {
+void Row::PrintRow(std::ostream& streamType, size_t* columnsLongestWords) const {
 	for (size_t i = 0; i < this->cells.GetSize(); i++)
 	{
+		size_t intervalsCount = columnsLongestWords[i] - this->cells.At(i)->GetData().GetLength();
 		this->cells.At(i)->PrintCell(streamType);
+		for (size_t i = 0; i < intervalsCount; i++)
+		{
+			streamType << " ";
+		}
 		streamType << '|';
 	}
 }

@@ -1,13 +1,12 @@
 #include "FormulaCell.h"
 #include "..\..\Formula\ExpressionCalculator.h"
-FormulaCell::FormulaCell() : Cell(CellType::String) {}
+FormulaCell::FormulaCell() : Cell(CellType::Formula) {}
 
-FormulaCell::FormulaCell(const MyString& data, const SharedPtr<const Table>& table)
-	: Cell(CellType::String), data(data), table(table) {}
+FormulaCell::FormulaCell(const MyString& data)
+	: Cell(CellType::Formula), data(data) {}
 
 void FormulaCell::PrintCell(std::ostream& streamType) const {
-	ExpressionCalculator expr(this->data, table);
-	streamType << expr.Evaluate();
+	
 }
 
 Cell* FormulaCell::clone() const {
@@ -15,6 +14,6 @@ Cell* FormulaCell::clone() const {
 	return newCell;
 }
 
-MyString FormulaCell::GetData() const  {
+MyString FormulaCell::GetData() const {
 	return this->data;
 }

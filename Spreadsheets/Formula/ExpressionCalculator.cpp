@@ -85,7 +85,7 @@ int ExpressionCalculator::GetCell(size_t startId, const MyString& str,
 	return result;
 }
 
-ExpressionCalculator::ExpressionCalculator(const MyString& str, const SharedPtr<const Table>& table)
+ExpressionCalculator::ExpressionCalculator(const MyString& str, const Table* table)
 	: table(table), expr(ParseExpression(str)) {}
 
 double ExpressionCalculator::Evaluate() {

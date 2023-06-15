@@ -17,7 +17,7 @@ public:
 
 	void AddCell(SharedPtr<Cell>&& cell);
 
-	void PrintRow(std::ostream& streamType) const;
+	void PrintRow(std::ostream& streamType, size_t* columnsLongestWords) const;
 
 	void EditCell(SharedPtr<Cell>&& newCell, size_t at);
 };
