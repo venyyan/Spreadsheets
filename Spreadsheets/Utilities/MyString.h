@@ -51,6 +51,8 @@ public:
 	MyString IntToString(int number) const;
 	MyString DoubleToString(double number) const;
 
+	void Remove(size_t idx);
+
 	friend std::istream& operator>>(std::istream& is, MyString& str);
 };
 

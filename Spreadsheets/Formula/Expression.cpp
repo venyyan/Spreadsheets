@@ -18,6 +18,9 @@ double Expression::Evaluate() const  {
 		return leftVal * rightVal;
 	}
 	else if (op == '/') {
+		if (rightVal == 0)
+			throw std::logic_error("Error");
+
 		return leftVal / rightVal;
 	}
 	else if (op == '^') {

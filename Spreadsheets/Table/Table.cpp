@@ -92,7 +92,6 @@ SharedPtr<Cell> Table::ReturnCell(const MyString& cellStr) const {
 size_t Table::GetLongestRow() const
 {
 	size_t longestRow = 0;
-
 	for (size_t i = 0; i < this->rows.GetSize(); i++)
 	{
 		if (this->rows.At(i)->GetCellsCount() > longestRow)
@@ -106,8 +105,8 @@ void Table::AddEmptyCells(size_t longestRow)
 	for (size_t i = 0; i < this->rows.GetSize(); i++)
 	{
 		if (this->rows.At(i)->GetCellsCount() < longestRow) {
-			int cycle = longestRow - this->rows.At(i)->GetCellsCount();
-			for (size_t j = 0; j < cycle; j++)
+			int emptyCellsCount = longestRow - this->rows.At(i)->GetCellsCount();
+			for (size_t j = 0; j < emptyCellsCount; j++)
 			{
 				SharedPtr<Cell> cell = new StringCell("");
 				this->rows.At(i)->AddCell(std::move(cell));
@@ -124,10 +123,15 @@ void Table::EvaluateFormulas()
 		{
 			if (this->rows.At(i)->GetCells().At(j)->GetType() == CellType::Formula) {
 				ExpressionCalculator expr(this->rows.At(i)->GetCells().At(j)->GetData(), this);
-				double evaluated = expr.Evaluate();
-
-				SharedPtr<Cell> edited = new DoubleCell(evaluated);
-				this->rows.At(i)->EditCell(std::move(edited), j);
+				try {
+					double evaluated = expr.Evaluate();
+					SharedPtr<Cell> edited = new DoubleCell(evaluated);
+					this->rows.At(i)->EditCell(std::move(edited), j);
+				}
+				catch (std::logic_error& exc) {
+					SharedPtr<Cell> edited = new StringCell("ERROR");
+					this->rows.At(i)->EditCell(std::move(edited), j);
+				}
 			}
 		}
 	}
@@ -154,11 +158,13 @@ void Table::PrintTable(std::ostream& streamType) const {
 }
 
 void Table::EditCell(size_t row, size_t column, const MyString& newData) {
-	if (row > this->GetRows().GetSize() - 1)
-		throw std::invalid_argument("ERROR: There is no row " + row);
-
+	if (row > this->GetRows().GetSize() - 1) {
+		MyString errorMessage = "ERROR: There is no column ";
+		errorMessage += MyString().IntToString(row);
+		throw std::invalid_argument(errorMessage.c_str());
+	}
 	if (column > this->GetRows().At(row)->GetCellsCount() - 1)
-		throw std::invalid_argument("ERROR: There is no column " + column);
+		throw std::invalid_argument("ERROR: There is no column ");
 
 	if (!newData.IsDouble() && !newData.IsFormula() && !newData.IsInt()
 		&& !newData.IsQuote()) {
@@ -171,11 +177,24 @@ void Table::EditCell(size_t row, size_t column, const MyString& newData) {
 
 	if (edited->GetType() == CellType::Formula) {
 		ExpressionCalculator expr(edited->GetData(), this);
-		double evaluated = expr.Evaluate();
-
-		edited = new DoubleCell(evaluated);
+		try {
+			double evaluated = expr.Evaluate();
+			edited = new DoubleCell(evaluated);
+		}
+		catch (std::logic_error& exc) {
+			edited = new StringCell("ERROR");
+		}
 	}
 	this->rows.At(row - 1)->EditCell(std::move(edited), column - 1);
+}
+
+void Table::SaveTable(const MyString& filePath) const
+{
+	std::ofstream ofs(filePath.c_str());
+
+	this->PrintTable(ofs);
+
+	ofs.close();
 }
 
 const MyVector<SharedPtr<Row>>& Table::GetRows() const {

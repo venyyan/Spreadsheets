@@ -93,5 +93,5 @@ double ExpressionCalculator::Evaluate() {
 }
 
 bool ExpressionCalculator::IsOperator(char op) {
-	return op == '+' || op == '-' || op == '*' || op == '/';
+	return op == '+' || op == '-' || op == '*' || op == '/' || op == '^';
 }

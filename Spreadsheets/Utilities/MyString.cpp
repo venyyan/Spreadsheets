@@ -192,7 +192,6 @@ bool MyString::IsDouble() const {
 
 int MyString::stoi() const {
 	int result = 0;
-	bool isNegative = false;
 	int makeNegative = 1;
 
 	size_t startIdx = 0;
@@ -208,7 +207,7 @@ int MyString::stoi() const {
 
 	if (startIdx <= endIdx && (this->data[startIdx] == '+' || this->data[startIdx] == '-')) {
 		if (this->data[startIdx] == '-')
-			isNegative = true;
+			makeNegative = -1;
 		startIdx++;
 	}
 
@@ -221,15 +220,44 @@ int MyString::stoi() const {
 }
 
 MyString MyString::ExtractQuote() const {
-	MyString result(this->length);
-	result = SubStr(1, this->length - 2);
+	size_t startIdx = 0;
+	size_t endIdx = this->length - 1;
+
+	while (startIdx < this->length && this->data[startIdx] == ' ') {
+		startIdx++;
+	}
+
+	while (endIdx > startIdx && this->data[endIdx] == ' ') {
+		endIdx--;
+	}
+
+	MyString result(endIdx - startIdx - 2);
+	result = SubStr(startIdx + 1, endIdx - startIdx - 1);
+
+	for (size_t i = 0; i < result.length - 1; i++)
+	{
+		if (result[i] == '\\' && result[i + 1] != '\\') {
+			result.Remove(i--);
+		}
+	}
+
 	return result;
 }
 
 MyString MyString::ExtractFormula() const
 {
+	size_t startIdx = 0;
+	size_t endIdx = this->length - 1;
+
+	while (startIdx < this->length && this->data[startIdx] == ' ') {
+		startIdx++;
+	}
+
+	while (endIdx > startIdx && this->data[endIdx] == ' ') {
+		endIdx--;
+	}
 	MyString result(this->length);
-	result = SubStr(1, this->length - 1);
+	result = SubStr(startIdx + 1, endIdx - startIdx);
 	return result;
 }
 
@@ -260,8 +288,11 @@ double MyString::stod() const {
 	}
 
 	if (startIdx < this->length && (this->data[startIdx] == '-' || this->data[startIdx] == '+')) {
-		if (this->data[startIdx] == '-')
+		if (this->data[startIdx] == '-') {
 			isNegative = true;
+			makeNegative = -1;
+		}
+
 		startIdx++;
 	}
 
@@ -289,7 +320,7 @@ double MyString::stod() const {
 	}
 
 	index = startIdx;
-	int counter = indexOfDot - 1 - isNegative - startIdx;
+	int counter = indexOfDot - 1 - startIdx;
 	while (index != indexOfDot) {
 		result += (this->data[index] - '0') * pow(10, counter);
 		counter--;
@@ -318,12 +349,16 @@ double MyString::stod() const {
 }
 
 bool MyString::IsQuote() const {
-	/*bool isQuote = false;
-	for (size_t i = 0; i < length; i++)
-	{
-		if (this->data[i] == )
-	}*/
-	return this->data[0] == '"' && this->data[length - 1] == '"';
+	size_t startIdx = 0;
+	size_t endIdx = this->length - 1;
+	while (startIdx < this->length && this->data[startIdx] == ' ') {
+		startIdx++;
+	}
+
+	while (endIdx > startIdx && this->data[endIdx] == ' ') {
+		endIdx--;
+	}
+	return this->data[startIdx] == '"' && this->data[endIdx] == '"';
 }
 
 bool MyString::IsFormula() const {
@@ -356,17 +391,18 @@ MyString MyString::IntToString(int number) const
 {
 	if (number == 0)
 		return MyString("0");
-	
+
 	size_t ind = 0;
 	size_t size = 0;
 	int numCopy = number;
-	while (numCopy > 0) {
+	while (numCopy != 0) {
 		numCopy /= 10;
 		size++;
 	}
 	char* result = new char[size + 2] {};
 	if (number < 0) {
 		result[ind++] = '-';
+		number = -number;
 	}
 	ind += size - 1;
 	for (int i = size - 1; i >= 0; i--)
@@ -382,7 +418,7 @@ MyString MyString::IntToString(int number) const
 MyString MyString::DoubleToString(double number) const
 {
 	MyString wholePart = IntToString(number);
-	
+
 	double mantissa = number - (int)number;
 
 	int precision = 2;
@@ -391,13 +427,13 @@ MyString MyString::DoubleToString(double number) const
 	for (size_t i = 0; i < precision; i++)
 	{
 		mantissa *= 10;
-		result[i + 1] =  (int)mantissa + '0';
+		result[i + 1] = (int)mantissa + '0';
 		mantissa -= (int)mantissa;
 	}
-	
+
 	wholePart += MyString(result);
 	size_t removeCount = 0;
-	for (int i = wholePart.length - 1; i >= 0 ; i--)
+	for (int i = wholePart.length - 1; i >= 0; i--)
 	{
 		if (wholePart[i] != '0')
 			break;
@@ -409,6 +445,15 @@ MyString MyString::DoubleToString(double number) const
 	if (wholePart[wholePart.length - 1 - removeCount] == '.')
 		removeCount++;
 	return wholePart.SubStr(0, wholePart.length - removeCount);
+}
+
+void MyString::Remove(size_t idx)
+{
+	for (size_t j = idx; j < length - 1; j++)
+	{
+		this->data[j] = this->data[j + 1];
+	}
+	this->data[--length] = '\0';
 }
 
 bool MyString::IsEmpty() const {

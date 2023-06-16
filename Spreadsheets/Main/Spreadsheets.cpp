@@ -4,9 +4,9 @@
 int main()
 {
 	Table* table = new Table("file.txt");
+	std::cout << "You're using Spreadsheets!";
 	while (true) {
-
-		std::cout << "You're using Spreadsheets! Enter a file path to open a table: "
+		std::cout << "Enter a file path to open a table : "
 			<< std::endl;
 		std::cout << "Opening table \"file.txt\"..." << std::endl;
 
@@ -45,6 +45,18 @@ int main()
 		}
 		else if (command == "print") {
 			table->PrintTable(std::cout);
+		}
+		else if (command == "close") {
+			std::cout << "Closing current table..." << std::endl;
+		}
+		else if (command == "save as") {
+			std::cout << "Enter a file name to save table: ";
+			MyString filePath;
+			table->SaveTable(filePath);
+		}
+		else if (command == "save") {
+			table->SaveTable("file.txt");
+			std::cout << "Table saved successfully!" << std::endl;
 		}
 		else if (command == "exit")
 			break;

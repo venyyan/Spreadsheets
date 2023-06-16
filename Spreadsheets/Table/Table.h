@@ -18,19 +18,19 @@ private:
 public:
 	Table() = default;
 	Table(const MyString& filePath);
+
 	void PrintTable(std::ostream& streamType) const;
 	void EditCell(size_t row, size_t column, const MyString& newData);
+	void SaveTable(const MyString& filePath) const;
+
 	const MyVector<SharedPtr<Row>>& GetRows() const;
-
 	size_t* GetColumnsLongestWords() const;
-
 	bool GetErrorFlag() const;
 	const MyString& GetErrorMessage() const;
+
 private:
 	void GetTableFromFile(const MyString& filePath);
-	
 	SharedPtr<Row> ReadRow(std::ifstream& ifs) const;
-
 	SharedPtr<Cell> ReturnCell(const MyString& cellStr) const;
 
 	size_t GetLongestRow() const;

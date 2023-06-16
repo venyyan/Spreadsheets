@@ -1,4 +1,11 @@
-﻿  Table.cpp
-C:\Users\venia\source\repos\Spreadsheets\Spreadsheets\Utilities\UniquePtr.hpp(33,1): warning C4812: obsolete declaration style: please use 'UniquePtr<T>::UniquePtr' instead
-C:\Users\venia\source\repos\Spreadsheets\Spreadsheets\Table\Table.cpp(109,62): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+﻿  MyString.cpp
+C:\Users\venia\source\repos\Spreadsheets\Spreadsheets\Utilities\MyString.cpp(312,18): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\venia\source\repos\Spreadsheets\Spreadsheets\Utilities\MyString.cpp(319,26): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\venia\source\repos\Spreadsheets\Spreadsheets\Utilities\MyString.cpp(322,18): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\venia\source\repos\Spreadsheets\Spreadsheets\Utilities\MyString.cpp(323,41): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\venia\source\repos\Spreadsheets\Spreadsheets\Utilities\MyString.cpp(335,31): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\venia\source\repos\Spreadsheets\Spreadsheets\Utilities\MyString.cpp(337,44): warning C4244: '+=': conversion from 'double' to 'int', possible loss of data
+C:\Users\venia\source\repos\Spreadsheets\Spreadsheets\Utilities\MyString.cpp(408,2): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\venia\source\repos\Spreadsheets\Spreadsheets\Utilities\MyString.cpp(420,35): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\venia\source\repos\Spreadsheets\Spreadsheets\Utilities\MyString.cpp(436,2): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
   Spreadsheets.vcxproj -> C:\Users\venia\source\repos\Spreadsheets\x64\Debug\Spreadsheets.exe
