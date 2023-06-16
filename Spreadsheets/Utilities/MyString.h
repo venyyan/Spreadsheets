@@ -25,6 +25,8 @@ private:
 
 	explicit MyString(size_t capacity);
 
+	void FindIdsOfStrWithoutWhitespace(size_t& startIdx, size_t& endIdx) const;
+
 public:
 	size_t GetLength() const;
 	bool IsEmpty() const;

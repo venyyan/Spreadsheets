@@ -14,8 +14,6 @@ private:
 	const Table* table;
 	ArithmeticExpression* expr;
 	
-
-	bool IsOperator(char op);
 	ArithmeticExpression* ParseExpression(const MyString& str);
 
 	int GetCell(size_t number, const MyString& str, int& rowDigitsCount) const;

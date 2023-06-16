@@ -1,11 +1,12 @@
 #include "ExpressionCalculator.h"
+#include "..\Utilities\HelperFunctions.h"
 
 ArithmeticExpression* ExpressionCalculator::ParseExpression(const MyString& str) {
 	if (str.GetLength() == 0) {
 		return nullptr;
 	}
-	if (str.GetLength() == 1 && std::isdigit(str[0])) {
-		return new Number(str[0] - 48);
+	if (str.GetLength() == 1 && IsDigit(str[0])) {
+		return new Number(str[0] - '0');
 	}
 	MyString strWithoutBrackets = str.SubStr(1, str.GetLength() - 2);
 
@@ -39,16 +40,16 @@ ArithmeticExpression* ExpressionCalculator::ParseExpression(const MyString& str)
 			if (digitsCount == 0)
 				return new Number(0);
 		}
-		else {
+		else
 			return new Number(0);
-		}
+
 		if (str[digitsCount + 1] == 'C') {
 			int cId = digitsCount + 1;
 			col = GetCell(digitsCount + 2, str, digitsCount);
 			if (cId + digitsCount != str.GetLength() - 1)
 				return new Number(0);
 		}
-		if (row > this->table->GetRows().GetSize() 
+		if (row > this->table->GetRows().GetSize()
 			|| col > this->table->GetRows().At(row - 1)->GetCellsCount())
 			return new Number(0);
 
@@ -58,7 +59,6 @@ ArithmeticExpression* ExpressionCalculator::ParseExpression(const MyString& str)
 		else
 			return new Number(0);
 	}
-
 }
 
 int ExpressionCalculator::GetCell(size_t startId, const MyString& str,
@@ -71,12 +71,10 @@ int ExpressionCalculator::GetCell(size_t startId, const MyString& str,
 
 	for (size_t i = startId; i < str.GetLength(); i++)
 	{
-		if (str[i] >= '0' && str[i] <= '9') {
+		if (str[i] >= '0' && str[i] <= '9')
 			arr[resultLen++] = str[i];
-		}
-		else {
+		else
 			break;
-		}
 	}
 	arr[resultLen] = '\0';
 	digitsCount = resultLen;
@@ -90,8 +88,4 @@ ExpressionCalculator::ExpressionCalculator(const MyString& str, const Table* tab
 
 double ExpressionCalculator::Evaluate() {
 	return expr->Evaluate();
-}
-
-bool ExpressionCalculator::IsOperator(char op) {
-	return op == '+' || op == '-' || op == '*' || op == '/' || op == '^';
 }

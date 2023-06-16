@@ -6,10 +6,10 @@ FormulaCell::FormulaCell(const MyString& data)
 	: Cell(CellType::Formula), data(data) {}
 
 void FormulaCell::PrintCell(std::ostream& streamType) const {
-	
+	streamType << this->data;
 }
 
-Cell* FormulaCell::clone() const {
+Cell* FormulaCell::Clone() const {
 	Cell* newCell = new FormulaCell(*this);
 	return newCell;
 }

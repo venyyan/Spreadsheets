@@ -24,7 +24,7 @@ public:
 	void SaveTable(const MyString& filePath) const;
 
 	const MyVector<SharedPtr<Row>>& GetRows() const;
-	size_t* GetColumnsLongestWords() const;
+	MyVector<size_t> GetColumnsLongestWords() const;
 	bool GetErrorFlag() const;
 	const MyString& GetErrorMessage() const;
 

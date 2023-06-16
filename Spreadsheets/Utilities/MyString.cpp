@@ -2,6 +2,8 @@
 #include <cstring>
 #include <cmath>
 #include <iomanip>
+#include "HelperFunctions.h"
+
 const unsigned MAX_BUFFER_SIZE = 1024;
 
 void MyString::CopyFrom(const MyString& other) {
@@ -29,6 +31,17 @@ MyString::MyString(size_t capacity) {
 	this->length = capacity - 1;
 	this->data = new char[capacity] {};
 }
+
+void MyString::FindIdsOfStrWithoutWhitespace(size_t& startIdx, size_t& endIdx) const {
+	while (startIdx < this->length && this->data[startIdx] == ' ') {
+		startIdx++;
+	}
+
+	while (endIdx > startIdx && this->data[endIdx] == ' ') {
+		endIdx--;
+	}
+}
+
 MyString::MyString(const char* data) : MyString(strlen(data) + 1) {
 	strcpy_s(this->data, this->length + 1, data);
 }
@@ -119,22 +132,13 @@ MyString MyString::SubStr(size_t begin, size_t howMany) const {
 	return res;
 }
 
-bool IsDigit(char c) {
-	return c >= '0' && c <= '9';
-}
 
 bool MyString::IsInt() const {
 	bool isNegative = false;
 	size_t startIdx = 0;
 	size_t endIdx = this->length - 1;
 
-	while (startIdx < this->length && this->data[startIdx] == ' ') {
-		startIdx++;
-	}
-
-	while (endIdx > startIdx && this->data[endIdx] == ' ') {
-		endIdx--;
-	}
+	FindIdsOfStrWithoutWhitespace(startIdx, endIdx);
 
 	if (startIdx <= endIdx && (this->data[startIdx] == '-' || this->data[startIdx] == '+')) {
 		isNegative = true;
@@ -197,13 +201,7 @@ int MyString::stoi() const {
 	size_t startIdx = 0;
 	size_t endIdx = this->length - 1;
 
-	while (startIdx < this->length && this->data[startIdx] == ' ') {
-		startIdx++;
-	}
-
-	while (endIdx > startIdx && this->data[endIdx] == ' ') {
-		endIdx--;
-	}
+	FindIdsOfStrWithoutWhitespace(startIdx, endIdx);
 
 	if (startIdx <= endIdx && (this->data[startIdx] == '+' || this->data[startIdx] == '-')) {
 		if (this->data[startIdx] == '-')
@@ -223,13 +221,7 @@ MyString MyString::ExtractQuote() const {
 	size_t startIdx = 0;
 	size_t endIdx = this->length - 1;
 
-	while (startIdx < this->length && this->data[startIdx] == ' ') {
-		startIdx++;
-	}
-
-	while (endIdx > startIdx && this->data[endIdx] == ' ') {
-		endIdx--;
-	}
+	FindIdsOfStrWithoutWhitespace(startIdx, endIdx);
 
 	MyString result(endIdx - startIdx - 2);
 	result = SubStr(startIdx + 1, endIdx - startIdx - 1);
@@ -240,7 +232,6 @@ MyString MyString::ExtractQuote() const {
 			result.Remove(i--);
 		}
 	}
-
 	return result;
 }
 
@@ -249,31 +240,12 @@ MyString MyString::ExtractFormula() const
 	size_t startIdx = 0;
 	size_t endIdx = this->length - 1;
 
-	while (startIdx < this->length && this->data[startIdx] == ' ') {
-		startIdx++;
-	}
-
-	while (endIdx > startIdx && this->data[endIdx] == ' ') {
-		endIdx--;
-	}
+	FindIdsOfStrWithoutWhitespace(startIdx, endIdx);
 	MyString result(this->length);
 	result = SubStr(startIdx + 1, endIdx - startIdx);
 	return result;
 }
 
-size_t NumberSize(int number) {
-
-	int numberSize = 0;
-
-	if (number == 0) {
-		numberSize = 1;
-	}
-	while (number > 0) {
-		number /= 10;
-		numberSize++;
-	}
-	return numberSize;
-}
 
 double MyString::stod() const {
 	double result = 0;
@@ -340,7 +312,7 @@ double MyString::stod() const {
 	}
 
 	int mantissaCopy = mantissaInt;
-	size_t mantissaSize = NumberSize(mantissaCopy);
+	size_t mantissaSize = GetNumberSize(mantissaCopy);
 	mantissaDouble = mantissaInt;
 	mantissaDouble /= pow(10, mantissaSize);
 
@@ -351,26 +323,16 @@ double MyString::stod() const {
 bool MyString::IsQuote() const {
 	size_t startIdx = 0;
 	size_t endIdx = this->length - 1;
-	while (startIdx < this->length && this->data[startIdx] == ' ') {
-		startIdx++;
-	}
-
-	while (endIdx > startIdx && this->data[endIdx] == ' ') {
-		endIdx--;
-	}
+	
+	FindIdsOfStrWithoutWhitespace(startIdx, endIdx);
 	return this->data[startIdx] == '"' && this->data[endIdx] == '"';
 }
 
 bool MyString::IsFormula() const {
 	size_t startIdx = 0;
 	size_t endIdx = this->length - 1;
-	while (startIdx < this->length && this->data[startIdx] == ' ') {
-		startIdx++;
-	}
-
-	while (endIdx > startIdx && this->data[endIdx] == ' ') {
-		endIdx--;
-	}
+	
+	FindIdsOfStrWithoutWhitespace(startIdx, endIdx);
 	if (this->data[startIdx] == '=')
 		return true;
 

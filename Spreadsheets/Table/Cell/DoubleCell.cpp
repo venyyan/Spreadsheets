@@ -5,7 +5,7 @@ DoubleCell::DoubleCell(double data) : Cell(CellType::Double), data(data) {};
 DoubleCell::DoubleCell() : Cell(CellType::Double) {}
 
 
-Cell* DoubleCell::clone() const {
+Cell* DoubleCell::Clone() const {
 	Cell* newCell = new DoubleCell(*this);
 	return newCell;
 }

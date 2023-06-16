@@ -4,8 +4,7 @@ IntCell::IntCell(int data) : Cell(CellType::Int), data(data) {}
 
 IntCell::IntCell() : Cell(CellType::Int) {}
 
-
-Cell* IntCell::clone() const  {
+Cell* IntCell::Clone() const  {
 	Cell* newCell = new IntCell(*this);
 	return newCell;
 }

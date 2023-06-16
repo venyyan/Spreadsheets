@@ -39,7 +39,7 @@ int main()
 				table->PrintTable(std::cout);
 			}
 			catch (std::invalid_argument& exc) {
-				std::cout << exc.what();
+				std::cout << exc.what() << std::endl;
 			}
 
 		}

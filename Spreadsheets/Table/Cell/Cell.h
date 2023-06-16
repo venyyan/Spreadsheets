@@ -17,7 +17,7 @@ public:
 
 	virtual void PrintCell(std::ostream& streamType) const = 0;
 
-	virtual Cell* clone() const = 0;
+	virtual Cell* Clone() const = 0;
 	virtual ~Cell() = default;
 	virtual MyString GetData() const = 0;
 

@@ -8,7 +8,7 @@ void StringCell::PrintCell(std::ostream& streamType) const {
 	streamType << this->data;
 }
 
-Cell* StringCell::clone() const {
+Cell* StringCell::Clone() const {
 	Cell* newCell = new StringCell(*this);
 	return newCell;
 }

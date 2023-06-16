@@ -41,13 +41,13 @@ SharedPtr<Row> Table::ReadRow(std::ifstream& ifs) const {
 	MyString rowBuffer;
 	ifs >> rowBuffer;
 
+	SharedPtr<Row> currentRow(new Row());
 	if (rowBuffer.IsEmpty())
 	{
-		return SharedPtr<Row>();
+		currentRow->AddCell(new StringCell(""));
+		return currentRow;
 	}
-
-	SharedPtr<Row> currentRow(new Row());
-
+	
 	std::stringstream ss(rowBuffer.c_str());
 	size_t cellsCount = 0;
 
@@ -148,33 +148,35 @@ const MyString& Table::GetErrorMessage() const
 }
 
 void Table::PrintTable(std::ostream& streamType) const {
-	size_t* columnsLongestWords = GetColumnsLongestWords();
+	MyVector<size_t> columnsLongestWords = GetColumnsLongestWords();
 	for (size_t i = 0; i < this->rows.GetSize(); i++)
 	{
 		this->rows.At(i)->PrintRow(streamType, columnsLongestWords);
 		streamType << std::endl;
 	}
-	delete[] columnsLongestWords;
 }
 
 void Table::EditCell(size_t row, size_t column, const MyString& newData) {
 	if (row > this->GetRows().GetSize() - 1) {
-		MyString errorMessage = "ERROR: There is no column ";
+		MyString errorMessage = "ERROR: There is no row ";
 		errorMessage += MyString().IntToString(row);
 		throw std::invalid_argument(errorMessage.c_str());
 	}
-	if (column > this->GetRows().At(row)->GetCellsCount() - 1)
-		throw std::invalid_argument("ERROR: There is no column ");
+	if (column > this->GetRows().At(row)->GetCellsCount() - 1) {
+		MyString errorMessage = "ERROR: There is no column ";
+		errorMessage += MyString().IntToString(column);
+		throw std::invalid_argument(errorMessage.c_str());
+	}
 
 	if (!newData.IsDouble() && !newData.IsFormula() && !newData.IsInt()
 		&& !newData.IsQuote()) {
-		//MyString errorMessage = "ERROR: " + newData;
-		throw std::invalid_argument("ERROR: is unknown data type!");
+		MyString errorMessage = "ERROR: ";
+		errorMessage += newData;
+		errorMessage += " is unknown data type!";
+		throw std::invalid_argument(errorMessage.c_str());
 	}
 
-
 	SharedPtr<Cell> edited = ReturnCell(newData);
-
 	if (edited->GetType() == CellType::Formula) {
 		ExpressionCalculator expr(edited->GetData(), this);
 		try {
@@ -201,9 +203,9 @@ const MyVector<SharedPtr<Row>>& Table::GetRows() const {
 	return this->rows;
 }
 
-size_t* Table::GetColumnsLongestWords() const
+MyVector<size_t> Table::GetColumnsLongestWords() const
 {
-	size_t* longestWords = new size_t[10];
+	MyVector<size_t> longestWords;
 	size_t columnsCount = this->rows.At(0)->GetCellsCount();
 	for (size_t i = 0; i < columnsCount; i++)
 	{
@@ -213,7 +215,7 @@ size_t* Table::GetColumnsLongestWords() const
 			if (this->rows.At(j)->GetCells().At(i)->GetData().GetLength() > longestWordLen)
 				longestWordLen = this->rows.At(j)->GetCells().At(i)->GetData().GetLength();
 		}
-		longestWords[i] = longestWordLen;
+		longestWords.At(i) = longestWordLen;
 
 	}
 	return longestWords;
