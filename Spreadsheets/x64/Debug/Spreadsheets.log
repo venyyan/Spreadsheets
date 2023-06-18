@@ -1,17 +1,6 @@
-﻿  ExpressionCalculator.cpp
-C:\Users\venia\source\repos\Spreadsheets\Spreadsheets\Utilities\UniquePtr.hpp(33,1): warning C4812: obsolete declaration style: please use 'UniquePtr<T>::UniquePtr' instead
-C:\Users\venia\source\repos\Spreadsheets\Spreadsheets\Formula\ExpressionCalculator.cpp(80,25): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-  Spreadsheets.cpp
-C:\Users\venia\source\repos\Spreadsheets\Spreadsheets\Utilities\UniquePtr.hpp(33,1): warning C4812: obsolete declaration style: please use 'UniquePtr<T>::UniquePtr' instead
-  FormulaCell.cpp
-C:\Users\venia\source\repos\Spreadsheets\Spreadsheets\Utilities\UniquePtr.hpp(33,1): warning C4812: obsolete declaration style: please use 'UniquePtr<T>::UniquePtr' instead
-  Row.cpp
-  Table.cpp
-C:\Users\venia\source\repos\Spreadsheets\Spreadsheets\Utilities\UniquePtr.hpp(33,1): warning C4812: obsolete declaration style: please use 'UniquePtr<T>::UniquePtr' instead
-C:\Users\venia\source\repos\Spreadsheets\Spreadsheets\Table\Table.cpp(108,72): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\venia\source\repos\Spreadsheets\Spreadsheets\Table\Table.cpp(131,30): warning C4101: 'exc': unreferenced local variable
-C:\Users\venia\source\repos\Spreadsheets\Spreadsheets\Table\Table.cpp(162,45): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\venia\source\repos\Spreadsheets\Spreadsheets\Table\Table.cpp(167,48): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\venia\source\repos\Spreadsheets\Spreadsheets\Table\Table.cpp(186,28): warning C4101: 'exc': unreferenced local variable
-  Generating Code...
+﻿  HelperFunctions.cpp
+C:\Users\venia\source\repos\Spreadsheets\Spreadsheets\Utilities\HelperFunctions.cpp(15,9): warning C4244: 'return': conversion from 'double' to 'int', possible loss of data
+C:\Users\venia\source\repos\Spreadsheets\Spreadsheets\Utilities\HelperFunctions.cpp(56,2): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\venia\source\repos\Spreadsheets\Spreadsheets\Utilities\HelperFunctions.cpp(67,35): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\venia\source\repos\Spreadsheets\Spreadsheets\Utilities\HelperFunctions.cpp(83,2): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
   Spreadsheets.vcxproj -> C:\Users\venia\source\repos\Spreadsheets\x64\Debug\Spreadsheets.exe

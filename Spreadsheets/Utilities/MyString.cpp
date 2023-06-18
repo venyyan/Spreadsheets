@@ -109,9 +109,15 @@ char MyString::operator[](size_t index) const {
 	return this->data[index];
 }
 
+MyString operator+(const MyString& lhs, const MyString& rhs)
+{
+	MyString result = lhs;
+	result += rhs;
+	return result;
+}
+
 std::istream& operator>>(std::istream& is, MyString& str) {
 	char buff[MAX_BUFFER_SIZE];
-	//is >> buff;
 	is.getline(buff, MAX_BUFFER_SIZE);
 
 	delete[] str.data;
@@ -288,7 +294,7 @@ double MyString::stod() const {
 	}
 
 	if (!hasDot) {
-		indexOfDot = endIdx + 1;
+		return stoi();
 	}
 
 	index = startIdx;
@@ -347,66 +353,6 @@ bool MyString::IsEmptyString() const
 			return false;
 	}
 	return true;
-}
-
-MyString MyString::IntToString(int number) const
-{
-	if (number == 0)
-		return MyString("0");
-
-	size_t ind = 0;
-	size_t size = 0;
-	int numCopy = number;
-	while (numCopy != 0) {
-		numCopy /= 10;
-		size++;
-	}
-	char* result = new char[size + 2] {};
-	if (number < 0) {
-		result[ind++] = '-';
-		number = -number;
-	}
-	ind += size - 1;
-	for (int i = size - 1; i >= 0; i--)
-	{
-		result[ind--] = number % 10 + '0';
-		number /= 10;
-	}
-	MyString strResult(result);
-	delete[] result;
-	return strResult;
-}
-
-MyString MyString::DoubleToString(double number) const
-{
-	MyString wholePart = IntToString(number);
-
-	double mantissa = number - (int)number;
-
-	int precision = 2;
-	char* result = new char[precision + 2] {};
-	result[0] = '.';
-	for (size_t i = 0; i < precision; i++)
-	{
-		mantissa *= 10;
-		result[i + 1] = (int)mantissa + '0';
-		mantissa -= (int)mantissa;
-	}
-
-	wholePart += MyString(result);
-	size_t removeCount = 0;
-	for (int i = wholePart.length - 1; i >= 0; i--)
-	{
-		if (wholePart[i] != '0')
-			break;
-
-		if (wholePart[i] == '0')
-			removeCount++;
-	}
-
-	if (wholePart[wholePart.length - 1 - removeCount] == '.')
-		removeCount++;
-	return wholePart.SubStr(0, wholePart.length - removeCount);
 }
 
 void MyString::Remove(size_t idx)

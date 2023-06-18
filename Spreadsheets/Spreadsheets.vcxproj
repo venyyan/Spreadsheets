@@ -131,7 +131,6 @@
     <ClCompile Include="Table\Cell\FormulaCell.cpp" />
     <ClCompile Include="Formula\ExpressionCalculator.cpp" />
     <ClCompile Include="Formula\Expression.cpp" />
-    <ClCompile Include="Table\Cell\CellFactory.cpp" />
     <ClCompile Include="Table\Cell\DoubleCell.cpp" />
     <ClCompile Include="Table\Cell\IntCell.cpp" />
     <ClCompile Include="Utilities\MyString.cpp" />
@@ -149,9 +148,7 @@
     <ClInclude Include="Formula\Expression.h" />
     <ClInclude Include="Formula\ArithmeticExpression.h" />
     <ClInclude Include="Table\Cell\Cell.h" />
-    <ClInclude Include="Table\Cell\CellFactory.h" />
     <ClInclude Include="Table\Cell\DoubleCell.h" />
-    <ClInclude Include="GlobalConstants.h" />
     <ClInclude Include="Table\Cell\IntCell.h" />
     <ClInclude Include="Utilities\MyString.h" />
     <ClInclude Include="Utilities\MyVector.hpp" />
@@ -159,7 +156,6 @@
     <ClInclude Include="Table\Row.h" />
     <ClInclude Include="Table\Cell\StringCell.h" />
     <ClInclude Include="Table\Table.h" />
-    <ClInclude Include="Utilities\UniquePtr.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,9 +1,9 @@
 #include "DoubleCell.h"
+#include "..\..\Utilities\HelperFunctions.h"
 
 DoubleCell::DoubleCell(double data) : Cell(CellType::Double), data(data) {};
 
 DoubleCell::DoubleCell() : Cell(CellType::Double) {}
-
 
 Cell* DoubleCell::Clone() const {
 	Cell* newCell = new DoubleCell(*this);
@@ -11,8 +11,7 @@ Cell* DoubleCell::Clone() const {
 }
 
 MyString DoubleCell::GetData() const {
-	MyString result;
-	return result.DoubleToString(this->data);
+	return DoubleToString(this->data);
 }
 
 void DoubleCell::PrintCell(std::ostream& streamType) const {

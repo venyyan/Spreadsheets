@@ -1,6 +1,9 @@
 #include "ExpressionCalculator.h"
 #include "..\Utilities\HelperFunctions.h"
 
+const char ROW_SYMBOL = 'R';
+const char COLUMN_SYMBOL = 'C';
+
 ArithmeticExpression* ExpressionCalculator::ParseExpression(const MyString& str) {
 	if (str.GetLength() == 0) {
 		return nullptr;
@@ -35,35 +38,39 @@ ArithmeticExpression* ExpressionCalculator::ParseExpression(const MyString& str)
 		int col = 0;
 
 		int digitsCount = 0;
-		if (str[0] == 'R') {
+		if (str[0] == ROW_SYMBOL) {
 			row = GetCell(1, str, digitsCount);
 			if (digitsCount == 0)
 				return new Number(0);
 		}
-		else
+		else {
 			return new Number(0);
+		}
 
-		if (str[digitsCount + 1] == 'C') {
+		if (str[digitsCount + 1] == COLUMN_SYMBOL) {
 			int cId = digitsCount + 1;
 			col = GetCell(digitsCount + 2, str, digitsCount);
-			if (cId + digitsCount != str.GetLength() - 1)
+			if (cId + digitsCount != str.GetLength() - 1) {
 				return new Number(0);
+			}
 		}
 		if (row > this->table->GetRows().GetSize()
-			|| col > this->table->GetRows().At(row - 1)->GetCellsCount())
+			|| col > this->table->GetRows().At(row - 1)->GetCellsCount()) {
 			return new Number(0);
+		}
 
 		MyString data = this->table->GetRows().At(row - 1)->GetCells().At(col - 1)->GetData();
-		if (data.IsInt() || data.IsDouble())
+		if (data.IsInt() || data.IsDouble()) {
 			return new Number(data.stod());
-		else
+		}
+		else {
 			return new Number(0);
+		}
 	}
 }
 
 int ExpressionCalculator::GetCell(size_t startId, const MyString& str,
-	int& digitsCount) const
-{
+	int& digitsCount) const {
 	char* arr = new char[str.GetLength()];
 	size_t resultLen = 0;
 	if (str[startId] == '0')

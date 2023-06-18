@@ -30,9 +30,6 @@
     <ClCompile Include="Table\Row.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Table\Cell\CellFactory.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Table\Table.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -74,16 +71,7 @@
     <ClInclude Include="Table\Row.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Utilities\UniquePtr.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Table\Cell\CellFactory.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Table\Table.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GlobalConstants.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Table\Cell\StringCell.h">

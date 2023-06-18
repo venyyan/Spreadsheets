@@ -1,15 +1,13 @@
 #pragma once
 #include "Row.h"
 #include "..\Utilities\MyString.h"
-#include "Cell\CellFactory.h"
+#include "..\Utilities\SharedPtr.hpp"
 #include "Cell\IntCell.h"
 #include "Cell\DoubleCell.h"
 #include "Cell\StringCell.h"
 #include "Cell\FormulaCell.h"
-#include "..\Utilities\SharedPtr.hpp"
 
-class Table
-{
+class Table {
 private:
 	MyVector<SharedPtr<Row>> rows;
 

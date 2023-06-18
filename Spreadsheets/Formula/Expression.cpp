@@ -1,4 +1,5 @@
 #include "Expression.h"
+#include "..\Utilities\HelperFunctions.h"
 #include <iostream>
 
 Expression::Expression(char op, ArithmeticExpression* left, ArithmeticExpression* right)
@@ -24,7 +25,7 @@ double Expression::Evaluate() const  {
 		return leftVal / rightVal;
 	}
 	else if (op == '^') {
-		return std::pow(leftVal, rightVal);
+		return Pow(leftVal, rightVal);
 	}
 }
 

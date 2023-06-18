@@ -1,4 +1,5 @@
 #include "IntCell.h"
+#include "..\..\Utilities\HelperFunctions.h"
 
 IntCell::IntCell(int data) : Cell(CellType::Int), data(data) {}
 
@@ -10,7 +11,7 @@ Cell* IntCell::Clone() const  {
 }
 
 MyString IntCell::GetData() const {
-	return MyString().IntToString(this->data);
+	return IntToString(this->data);
 }
 
 void IntCell::PrintCell(std::ostream& streamType) const {

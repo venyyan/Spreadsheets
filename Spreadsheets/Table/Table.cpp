@@ -3,6 +3,7 @@
 #include <sstream>
 #include <exception>
 #include "..\Formula\ExpressionCalculator.h"
+#include "..\Utilities\HelperFunctions.h"
 
 const int CELL_MAX_SIZE = 100;
 
@@ -42,8 +43,7 @@ SharedPtr<Row> Table::ReadRow(std::ifstream& ifs) const {
 	ifs >> rowBuffer;
 
 	SharedPtr<Row> currentRow(new Row());
-	if (rowBuffer.IsEmpty())
-	{
+	if (rowBuffer.IsEmpty()) {
 		currentRow->AddCell(new StringCell(""));
 		return currentRow;
 	}
@@ -51,8 +51,7 @@ SharedPtr<Row> Table::ReadRow(std::ifstream& ifs) const {
 	std::stringstream ss(rowBuffer.c_str());
 	size_t cellsCount = 0;
 
-	while (!ss.eof())
-	{
+	while (!ss.eof()) {
 		char cellBuffer[CELL_MAX_SIZE];
 		ss.getline(cellBuffer, CELL_MAX_SIZE, ',');
 
@@ -60,7 +59,7 @@ SharedPtr<Row> Table::ReadRow(std::ifstream& ifs) const {
 		SharedPtr<Cell> cell = ReturnCell(cellStr);
 		if (!cell) {
 			this->errorFlag = true;
-			this->errorMessage = "Error!";
+			this->errorMessage = "Error! Unknown cell type!";
 			return nullptr;
 		}
 		currentRow->AddCell(std::move(cell));
@@ -89,25 +88,22 @@ SharedPtr<Cell> Table::ReturnCell(const MyString& cellStr) const {
 	}
 }
 
-size_t Table::GetLongestRow() const
-{
+size_t Table::GetLongestRow() const {
 	size_t longestRow = 0;
-	for (size_t i = 0; i < this->rows.GetSize(); i++)
-	{
-		if (this->rows.At(i)->GetCellsCount() > longestRow)
-			longestRow = this->rows.At(i)->GetCellsCount();
+	for (size_t i = 0; i < this->rows.GetSize(); i++) {
+		size_t currentRowSize = this->rows.At(i)->GetCellsCount();
+		if (currentRowSize > longestRow)
+			longestRow = currentRowSize;
 	}
 	return longestRow;
 }
 
-void Table::AddEmptyCells(size_t longestRow)
-{
-	for (size_t i = 0; i < this->rows.GetSize(); i++)
-	{
-		if (this->rows.At(i)->GetCellsCount() < longestRow) {
+void Table::AddEmptyCells(size_t longestRow) {
+	for (size_t i = 0; i < this->rows.GetSize(); i++) {
+		size_t currentRowSize = this->rows.At(i)->GetCellsCount();
+		if (currentRowSize < longestRow) {
 			int emptyCellsCount = longestRow - this->rows.At(i)->GetCellsCount();
-			for (size_t j = 0; j < emptyCellsCount; j++)
-			{
+			for (size_t j = 0; j < emptyCellsCount; j++) {
 				SharedPtr<Cell> cell = new StringCell("");
 				this->rows.At(i)->AddCell(std::move(cell));
 			}
@@ -115,12 +111,10 @@ void Table::AddEmptyCells(size_t longestRow)
 	}
 }
 
-void Table::EvaluateFormulas()
-{
-	for (size_t i = 0; i < this->rows.GetSize(); i++)
-	{
-		for (size_t j = 0; j < this->rows.At(i)->GetCellsCount(); j++)
-		{
+void Table::EvaluateFormulas() {
+	for (size_t i = 0; i < this->rows.GetSize(); i++) {
+		size_t currentRowSize = this->rows.At(i)->GetCellsCount();
+		for (size_t j = 0; j < currentRowSize; j++) {
 			if (this->rows.At(i)->GetCells().At(j)->GetType() == CellType::Formula) {
 				ExpressionCalculator expr(this->rows.At(i)->GetCells().At(j)->GetData(), this);
 				try {
@@ -137,42 +131,35 @@ void Table::EvaluateFormulas()
 	}
 }
 
-bool Table::GetErrorFlag() const
-{
+bool Table::GetErrorFlag() const {
 	return this->errorFlag;
 }
 
-const MyString& Table::GetErrorMessage() const
-{
+const MyString& Table::GetErrorMessage() const {
 	return this->errorMessage;
 }
 
 void Table::PrintTable(std::ostream& streamType) const {
 	MyVector<size_t> columnsLongestWords = GetColumnsLongestWords();
-	for (size_t i = 0; i < this->rows.GetSize(); i++)
-	{
+	for (size_t i = 0; i < this->rows.GetSize(); i++) {
 		this->rows.At(i)->PrintRow(streamType, columnsLongestWords);
 		streamType << std::endl;
 	}
 }
 
 void Table::EditCell(size_t row, size_t column, const MyString& newData) {
-	if (row > this->GetRows().GetSize() - 1) {
-		MyString errorMessage = "ERROR: There is no row ";
-		errorMessage += MyString().IntToString(row);
+	if (row > this->GetRows().GetSize()) {
+		MyString errorMessage = "ERROR: There is no row " + IntToString(row);
 		throw std::invalid_argument(errorMessage.c_str());
 	}
-	if (column > this->GetRows().At(row)->GetCellsCount() - 1) {
-		MyString errorMessage = "ERROR: There is no column ";
-		errorMessage += MyString().IntToString(column);
+	if (column > this->GetRows().At(row - 1)->GetCellsCount()) {
+		MyString errorMessage = "ERROR: There is no column " + IntToString(column);
 		throw std::invalid_argument(errorMessage.c_str());
 	}
 
 	if (!newData.IsDouble() && !newData.IsFormula() && !newData.IsInt()
 		&& !newData.IsQuote()) {
-		MyString errorMessage = "ERROR: ";
-		errorMessage += newData;
-		errorMessage += " is unknown data type!";
+		MyString errorMessage = "ERROR: " + newData + " is unknown data type!";
 		throw std::invalid_argument(errorMessage.c_str());
 	}
 
@@ -193,9 +180,7 @@ void Table::EditCell(size_t row, size_t column, const MyString& newData) {
 void Table::SaveTable(const MyString& filePath) const
 {
 	std::ofstream ofs(filePath.c_str());
-
 	this->PrintTable(ofs);
-
 	ofs.close();
 }
 
@@ -207,16 +192,13 @@ MyVector<size_t> Table::GetColumnsLongestWords() const
 {
 	MyVector<size_t> longestWords;
 	size_t columnsCount = this->rows.At(0)->GetCellsCount();
-	for (size_t i = 0; i < columnsCount; i++)
-	{
+	for (size_t i = 0; i < columnsCount; i++) {
 		size_t longestWordLen = 0;
-		for (int j = 0; j < this->rows.GetSize(); j++)
-		{
+		for (int j = 0; j < this->rows.GetSize(); j++) {
 			if (this->rows.At(j)->GetCells().At(i)->GetData().GetLength() > longestWordLen)
 				longestWordLen = this->rows.At(j)->GetCells().At(i)->GetData().GetLength();
 		}
 		longestWords.At(i) = longestWordLen;
-
 	}
 	return longestWords;
 }

@@ -26,6 +26,7 @@ private:
 	explicit MyString(size_t capacity);
 
 	void FindIdsOfStrWithoutWhitespace(size_t& startIdx, size_t& endIdx) const;
+	void Remove(size_t idx);
 
 public:
 	size_t GetLength() const;
@@ -50,10 +51,7 @@ public:
 	bool IsFormula() const;
 	bool IsEmptyString() const;
 
-	MyString IntToString(int number) const;
-	MyString DoubleToString(double number) const;
-
-	void Remove(size_t idx);
+	friend MyString operator+(const MyString& lhs, const MyString& rhs);
 
 	friend std::istream& operator>>(std::istream& is, MyString& str);
 };
